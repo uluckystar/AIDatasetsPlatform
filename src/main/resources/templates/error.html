@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>出错了 - AIDatasetsPlatform</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .error-container {
+            max-width: 600px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        .error-message {
+            font-size: 18px;
+            color: #333;
+        }
+        .actions {
+            margin-top: 20px;
+        }
+        .btn-custom {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="container error-container">
+    <h1>哦哦，出错了！</h1>
+    <p class="error-message">我们遇到了一些问题，无法显示您请求的页面。</p>
+    <div class="actions">
+        <a href="/" class="btn btn-custom">返回首页</a>
+        <button onclick="history.back()" class="btn btn-outline-secondary">返回上一页</button>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

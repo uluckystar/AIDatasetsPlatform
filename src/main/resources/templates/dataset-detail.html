@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>数据集详情 - AIDatasetsPlatform</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    .dataset-detail-container {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      box-shadow: 0 5px 15px 0 rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+    .detail-header {
+      margin-bottom: 20px;
+    }
+    .detail-title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .detail-body p {
+      font-size: 16px;
+    }
+    .btn-custom {
+      background-color: #007bff;
+      border-color: #007bff;
+      color: white;
+    }
+    .btn-custom:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+<div class="container dataset-detail-container">
+  <div class="detail-header">
+    <h2 class="detail-title" th:text="${dataset.name}">数据集名称</h2>
+  </div>
+  <div class="detail-body">
+    <p><strong>描述：</strong><span th:text="${dataset.description}">这里是数据集的描述信息。</span></p>
+    <p><strong>上传者：</strong><span th:text="${dataset.uploader}">上传者名称</span></p>
+    <p><strong>文件大小：</strong><span th:text="${dataset.size}">XX MB</span></p>
+    <p><strong>下载次数：</strong><span th:text="${dataset.downloadCount}">0</span></p>
+  </div>
+  <div class="detail-actions mt-4">
+    <a th:href="@{/datasets/download/__${dataset.id}__}" class="btn btn-custom">下载数据集</a>
+    <a th:href="@{/datasets}" class="btn btn-outline-secondary">返回列表</a>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

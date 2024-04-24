@@ -1,0 +1,122 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>File Management</title>-->
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div class="container mt-5">-->
+<!--    <h2>File Upload & Download</h2>-->
+<!--    <div class="row">-->
+<!--        <div class="col-12">-->
+<!--            <form method="POST" action="/api/datasets/upload" enctype="multipart/form-data" th:action="@{/api/datasets/upload}" th:object="${dataset}">-->
+<!--                <div class="form-group">-->
+<!--                    <label for="file">Choose file to upload</label>-->
+<!--                    <input type="file" name="file" class="form-control-file" id="file">-->
+<!--                </div>-->
+<!--                <button type="submit" class="btn btn-primary">Upload</button>-->
+<!--            </form>-->
+<!--        </div>-->
+
+<!--        <div class="col-12 mt-4">-->
+<!--            <h3>Available Files</h3>-->
+<!--            <ul class="list-group">-->
+<!--                &lt;!&ndash; Loop through files &ndash;&gt;-->
+<!--                <li class="list-group-item" th:each="file : ${files}">-->
+<!--                    <a th:href="@{'/api/datasets/download/' + ${file.name}}" th:text="${file.name}">Download Link</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>-->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>File Management</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>File Upload & Download</h2>
+    <div class="row">
+        <div class="col-12">
+            <!-- 注意这里的ID为uploadForm，与下方的jQuery选择器相匹配 -->
+            <form id="uploadForm" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="file">Choose file to upload</label>
+                    <input type="file" name="file" class="form-control-file" id="file">
+                </div>
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </form>
+        </div>
+        <div class="col-12 mt-4">
+            <h3>Available Files</h3>
+            <ul class="list-group">
+                <!-- Thymeleaf循环展示文件 -->
+                <li class="list-group-item" th:each="file : ${files}">
+                    <a th:href="@{'/api/datasets/download/' + ${file.name}}" th:text="${file.name}">Download Link</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function refreshFileList() {
+        $.ajax({
+            url: "/api/datasets/download", // 假设这个URL返回文件列表的JSON数据
+            type: "GET",
+            success: function(data) {
+                var fileListHtml = '';
+                for(var i = 0; i < data.length; i++) {
+                    fileListHtml += '<li class="list-group-item">' +
+                        '<a href="/api/datasets/download/' + data[i].name + '">' +
+                        data[i].name + '</a></li>';
+                }
+                $(".list-group").html(fileListHtml);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $("#uploadForm").submit(function(event) {
+            event.preventDefault(); // 阻止表单默认提交行为
+            var formData = new FormData($(this)[0]);
+            $.ajax({
+                url: "/api/datasets/upload",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    alert("Upload successful: " + response);
+                    refreshFileList(); // 刷新文件列表
+                },
+                error: function(xhr) {
+                    if(xhr.status === 409) { // 假设后端在文件已存在时返回409状态码
+                        alert("File already exists!");
+                    } else {
+                        alert("Upload failed!");
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
