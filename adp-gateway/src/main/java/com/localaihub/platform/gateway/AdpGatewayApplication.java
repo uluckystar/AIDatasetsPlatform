@@ -8,6 +8,7 @@ public class AdpGatewayApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AdpGatewayApplication.class, args);
+        System.out.println("adp gateway started successfully!");
     }
 
 }

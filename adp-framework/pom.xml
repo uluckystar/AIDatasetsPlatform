@@ -2,40 +2,28 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.5</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>com.localaihub.platform</groupId>
+        <artifactId>AIDatasetsPlatform</artifactId>
+        <version>${revision}</version>
     </parent>
-    <groupId>com.localaihub.platform</groupId>
+
     <artifactId>adp-framework</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>adp-framework</name>
-    <description>adp-framework</description>
-    <properties>
-        <java.version>17</java.version>
-    </properties>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
+    <name>${project.artifactId}</name>
+    <packaging>pom</packaging>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <modules>
+        <module>adp-common</module>
+    </modules>
+    <description>
+        该包是技术组件，每个子包，代表一个组件。每个组件包括两部分：
+        1. core 包：是该组件的核心封装
+        2. config 包：是该组件基于 Spring 的配置
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-
+        技术组件，也分成两类：
+        1. 框架组件：和我们熟悉的 MyBatis、Redis 等等的拓展
+        2. 业务组件：和业务相关的组件的封装，例如说数据字典、操作日志等等。
+        如果是业务组件，Maven 名字会包含 biz
+    </description>
 </project>

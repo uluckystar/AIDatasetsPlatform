@@ -15,6 +15,7 @@
 
     <modules>
         <module>adp-module-system-api</module>
+        <module>adp-module-system-base</module>
     </modules>
 
     <description>

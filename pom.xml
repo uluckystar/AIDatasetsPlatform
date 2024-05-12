@@ -18,9 +18,10 @@
     <modules>
         <module>adp-dependencies</module>
         <module>adp-gateway</module>
-<!--        <module>adp-framework</module>-->
+        <module>adp-framework</module>
         <!--  各种 module 拓展 -->
         <module>adp-module-system</module>
+        <module>adp-module-infra</module>
     </modules>
 
     <!-- 项目的属性，定义了Java版本和Spring Cloud版本 -->
@@ -31,6 +32,8 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencyManagement>
@@ -83,7 +86,7 @@
         </plugins>
     </build>
 
-    <!-- 使用 huawei / aliyun 的 Maven 源，提升下载速度 -->
+<!--     使用 huawei / aliyun 的 Maven 源，提升下载速度 -->
 <!--    <repositories>-->
 <!--        <repository>-->
 <!--            <id>huaweicloud</id>-->

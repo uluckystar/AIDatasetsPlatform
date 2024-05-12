@@ -7,7 +7,9 @@
 	<artifactId>adp-dependencies</artifactId>
 	<version>${revision}</version>
 	<name>adp-dependencies</name>
-	<description>adp-dependencies</description>
+	<description>
+		基础 bom 文件，管理整个项目的依赖版本
+	</description>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -20,39 +22,91 @@
 		<!-- spring -->
 		<spring.boot.version>3.2.5</spring.boot.version>
 		<spring-cloud.version>2023.0.0</spring-cloud.version>
+		<spring.cloud.alibaba.version>2022.0.0.0-RC2</spring.cloud.alibaba.version>
 		<springdoc.version>1.6.15</springdoc.version>
+		<jakarta.persistence.version>3.1.0</jakarta.persistence.version>
+		<jakarta.validation.version>3.0.2</jakarta.validation.version>
+<!--		<tomcat.version>10.1.20</tomcat.version>-->
+		<mysql.version>8.0.33</mysql.version>
+		<swagger3.version>3.0.0</swagger3.version>
+		<knife4j.version>3.0.3</knife4j.version>
+		<knife4j.gateway.version>4.4.0</knife4j.gateway.version>
+		<springdoc.version>2.4.0</springdoc.version>
+		<jedis.version>4.2.3</jedis.version>
+		<fastjson2.version>2.0.43</fastjson2.version>
+		<hibernate.jcache.version>6.4.4.Final</hibernate.jcache.version>
 
-<!--		<spring-cloud.version>2023.0.0</spring-cloud.version> &lt;!&ndash; 使用Spring Cloud 2023.0.0 &ndash;&gt;-->
-<!--		<spring.boot.version>3.2.5</spring.boot.version>-->
-<!--		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+		<commons-io.version>2.12.0</commons-io.version>
+		<spring-web.version>6.1.6</spring-web.version>
 	</properties>
 
 	<!-- 项目的依赖 -->
 	<dependencyManagement>
 		<dependencies>
+			<!-- 统一依赖管理 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring.boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
+				<version>${spring.cloud.alibaba.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 			<!-- Spring Boot 相关依赖 -->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-actuator</artifactId> <!-- Spring Boot Actuator模块，用于监控和管理应用 -->
+				<version>${spring.boot.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-data-jpa</artifactId> <!-- Spring Boot Data JPA模块，用于数据持久化 -->
+				<version>${spring.boot.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-security</artifactId> <!-- Spring Boot Security模块，用于安全认证和授权 -->
+				<version>${spring.boot.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-web</artifactId> <!-- Spring Boot Web模块，用于构建Web应用 -->
+				<version>${spring.boot.version}</version>
 			</dependency>
-			<!-- 测试相关依赖 -->
 			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-test</artifactId> <!-- Spring Security测试模块 -->
-				<scope>test</scope> <!-- 仅在测试范围内可用 -->
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${spring-web.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${spring-web.version}</version>
+			</dependency>
+<!--			<dependency>-->
+<!--				<groupId>org.apache.tomcat.embed</groupId>-->
+<!--				<artifactId>tomcat-embed-core</artifactId>-->
+<!--				<version>${tomcat.version}</version>-->
+<!--			</dependency>-->
+
 			<!-- Thymeleaf 模板引擎 -->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
@@ -71,17 +125,48 @@
 				<version>1.18.30</version> <!-- 使用Lombok 1.18.30 -->
 				<scope>provided</scope> <!-- 编译时依赖，不包含在发布的jar中 -->
 			</dependency>
-			<!-- MySQL 连接器 -->
+			<!-- 数据库相关 -->
 			<dependency>
-				<groupId>com.mysql</groupId>
-				<artifactId>mysql-connector-j</artifactId>
-				<scope>runtime</scope> <!-- 仅在运行时可用 -->
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql.version}</version> <!-- 根据你使用的 MySQL 版本选择合适的版本 -->
 			</dependency>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-jpa</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>repository.jakarta.persistence</groupId>
+				<artifactId>jakarta.persistence-api</artifactId>
+				<version>${jakarta.persistence.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>jakarta.validation</groupId>
+				<artifactId>jakarta.validation-api</artifactId>
+				<version>${jakarta.validation.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>redis.clients</groupId>
+				<artifactId>jedis</artifactId>
+				<version>${jedis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-jcache</artifactId>
+				<version>${hibernate.jcache.version}</version>
+			</dependency>
+
 			<!-- Spring Boot 测试依赖 -->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-test</artifactId>
 				<version>${spring.boot.version}</version>
+				<scope>test</scope> <!-- 仅在测试范围内可用 -->
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-test</artifactId> <!-- Spring Security测试模块 -->
 				<scope>test</scope> <!-- 仅在测试范围内可用 -->
 			</dependency>
 			<!-- Spring Cloud Stream 测试绑定器 -->
@@ -93,14 +178,29 @@
 			<!-- 接口文档 UI：默认 -->
 			<dependency>
 				<groupId>org.springdoc</groupId>
-				<artifactId>springdoc-openapi-ui</artifactId>
+				<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 				<version>${springdoc.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-boot-starter</artifactId>
+				<version>${swagger3.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.xiaoymin</groupId>
+				<artifactId>knife4j-spring-ui</artifactId>
+				<version>${knife4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.xiaoymin</groupId>
+				<artifactId>knife4j-gateway-spring-boot-starter</artifactId>
+				<version>${knife4j.gateway.version}</version>
+			</dependency>
+
 			<!-- 参数校验 -->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-validation</artifactId>
-				<optional>true</optional>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
@@ -109,6 +209,25 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<!-- 文件操作 -->
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons-io.version}</version>
+			</dependency>
+			<!-- 子模块服务 -->
+			<dependency>
+				<groupId>com.localaihub.platform</groupId>
+				<artifactId>adp-common</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<!-- 格式化 -->
+			<dependency>
+				<groupId>com.alibaba.fastjson2</groupId>
+				<artifactId>fastjson2</artifactId>
+				<version>${fastjson2.version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
