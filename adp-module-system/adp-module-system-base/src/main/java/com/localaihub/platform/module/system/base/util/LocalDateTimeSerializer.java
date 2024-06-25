@@ -1,0 +1,24 @@
+package com.localaihub.platform.module.system.base.util;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
+/**
+ * @author Jiaxing Jiang
+ * @version 0.1.0-SNAPSHOT
+ * @date 2024/5/17 13:36
+ */
+public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
+    @Override
+    public void serialize(LocalDateTime value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+        if (value != null) {
+            long millis = value.toInstant(ZoneOffset.UTC).toEpochMilli();
+            gen.writeNumber(millis);
+        }
+    }
+}

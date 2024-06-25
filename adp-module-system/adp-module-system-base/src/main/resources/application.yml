@@ -1,0 +1,80 @@
+server:
+  port: 8088  # 设置服务器端口为8088
+
+  # 这个属性用于指定转发请求头的策略，这里设置为framework，表示由框架自动处理
+  forward-headers-strategy: framework
+
+spring:
+  application:
+    name: adp-module-system-base  # 设置Spring应用的名称为adp-module-system-base
+
+  web:
+    resources:
+      static-locations: /Users/jiangjiaxing/project/GraduationProject/AIDatasetsPlatform-test/AIDatasetsPlatform/datasets
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/adp?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    # 数据库连接URL，指定了MySQL数据库的地址、端口、数据库名称以及其他参数
+    username: root  # 数据库用户名
+    password: 12345  # 数据库密码
+    driver-class-name: com.mysql.cj.jdbc.Driver  # 指定数据库驱动类名为MySQL的驱动类
+
+  jpa:
+    show-sql: false  # 设置是否在控制台打印SQL语句
+    hibernate:
+      ddl-auto: update  # 设置Hibernate在启动时根据实体类自动更新数据库表结构
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect  # 设置Hibernate方言为MySQL8
+        format_sql: true  # 设置为true时，格式化打印SQL语句，使其更易读的调试。默认为false，表示不格式化SQL语句。
+        enable_lazy_load_no_trans: true  # 设置为true时，启用Hibernate的延迟加载功能，即在没有事务的情况下延迟加载关联对象。默认为false，表示不启用延迟加载。
+        use_sql_comments: true  # 设置为true时，在生成的SQL语句中包含注释。默认为false，表示不在SQL语句中包含注释。
+#        cache:  # 定义Hibernate二级缓存相关配置的部分
+#          region.factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
+#          # 指定用于创建Hibernate缓存区域的工厂类，这里设置为JCacheRegionFactory
+#          use_second_level_cache: true
+#          # 设置为true时，启用Hibernate的二级缓存。二级缓存是在SessionFactory级别进行缓存的，用于缓存实体对象。
+#          use_query_cache: true
+#          # 设置为true时，启用Hibernate的查询缓存。查询缓存可以缓存查询结果，提高查询的性能。
+#          provider_class: org.hibernate.cache.jcache.JCacheRegionFactory
+#          # 指定用于创建缓存区域的提供程序类，这里也设置为JCacheRegionFactory
+
+
+  servlet:
+    multipart:
+      max-file-size: 1024MB  # 设置文件上传的最大大小为1024MB
+      max-request-size: 1024MB  # 设置请求的最大大小为1024MB
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848  # 设置Nacos服务注册中心的地址
+        service: ${spring.application.name}  # 设置服务名称，使用了Spring应用的名称
+        namespace: adp-dev  # 设置Nacos的命名空间为adp-dev
+
+springdoc:
+  api-docs:
+    enabled: true  # 开启Springdoc OpenApi接口文档生成
+    path: /v3/api-docs  # 设置OpenApi接口文档的访问路径为/v3/api-docs
+  swagger-ui:
+    enabled: true  # 开启Swagger UI界面，依赖于Springdoc OpenApi
+    path: /swagger-ui/index.html  # 设置Swagger UI界面的访问路径为/swagger-ui/index.html
+
+file:
+  upload-dir: datasets #相对根目录来说
+  base-url=http://localhost:8080/files:
+
+logging:
+  level:
+    root: INFO
+    org.springframework.security: DEBUG  # 设置Spring Security模块的日志级别为DEBUG
+    com.localaihub.platform: DEBUG
+
+token:
+  signing:
+    key: 413F4428472B4B6250655368566D5970337336763979244226452948404D6351
+
+openai:
+  api:
+    key: sk-qj-OhPhZCxQ1GtIsFrWqFI5T3BlbkFJPCKYgurDbz1uyiqOQcFG
+

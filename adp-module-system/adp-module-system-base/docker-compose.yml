@@ -1,0 +1,17 @@
+version: '1.0.0'
+services:
+  spring-boot-app:
+    build: .
+    container_name: adp-module-system-base
+    ports:
+      - "8089:8089"  # 将容器内的8089端口映射到主机的8089端口
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/adp?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 12345
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

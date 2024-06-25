@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: adp-module-infra-api
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        service: ${spring.application.name}
+        namespace: adp-dev
+server:
+  port: 18081
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

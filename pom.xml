@@ -54,6 +54,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId> <!-- Spring Boot Maven插件，用于打包Spring Boot应用 -->
+                <version>3.2.5</version>
             </plugin>
 
             <!-- 统一 revision 版本 -->
