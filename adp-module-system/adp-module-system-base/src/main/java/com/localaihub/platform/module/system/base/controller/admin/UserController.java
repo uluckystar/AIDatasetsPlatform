@@ -4,6 +4,7 @@ import com.localaihub.platform.framework.common.constants.ResultCode;
 import com.localaihub.platform.framework.common.constants.ResultMessage;
 import com.localaihub.platform.framework.common.result.*;
 import com.localaihub.platform.module.system.base.convert.DtoConverter;
+import com.localaihub.platform.module.system.base.dao.mybatis.UserEntityMapper;
 import com.localaihub.platform.module.system.base.dto.UserDto;
 import com.localaihub.platform.module.system.base.dto.UserStatusDto;
 import com.localaihub.platform.module.system.base.entity.user.UserEntity;
@@ -42,6 +43,8 @@ public class UserController {
     private UserService userService; // 用户服务
     @Autowired
     private IAuthenticationFacade authenticationFacade; // 认证服务
+    @Autowired
+    private UserEntityMapper userEntityMapper;
 
     @GetMapping
     @Operation(summary = "分页查询用户", description = "分页查询用户")
@@ -60,6 +63,15 @@ public class UserController {
                 .collect(Collectors.toList());
         long total = userService.getTotalUsers();
         return new ResultTable<>(true, new ResultData<>(userVos, total, pageSize, currentPage));
+    }
+
+    @GetMapping("/mybatis")
+    public Result getAllUsersByMybatis() {
+        List<UserEntity> users = userEntityMapper.findAll();
+        List<UserVo> userVos = users.stream()
+                .map(DtoConverter::convertUserEntityToUserVo)
+                .collect(Collectors.toList());
+        return new Result<>(200, "Success", userVos);
     }
 
     @PostMapping

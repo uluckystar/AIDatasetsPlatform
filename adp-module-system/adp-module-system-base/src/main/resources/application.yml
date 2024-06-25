@@ -39,6 +39,9 @@ spring:
 #          provider_class: org.hibernate.cache.jcache.JCacheRegionFactory
 #          # 指定用于创建缓存区域的提供程序类，这里也设置为JCacheRegionFactory
 
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.localaihub.platform.module.system.base.entity
 
   servlet:
     multipart:
@@ -66,6 +69,7 @@ file:
 
 logging:
   level:
+#    root: DEBUG
     root: INFO
     org.springframework.security: DEBUG  # 设置Spring Security模块的日志级别为DEBUG
     com.localaihub.platform: DEBUG
